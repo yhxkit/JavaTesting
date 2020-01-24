@@ -36,7 +36,7 @@ class TestClass03Test {
     @Test
     void assertTest2() {
         TestClass03 t1 = new TestClass03(-10);
-        assertTrue(t1.getLimit() > 0, "최대 수치는 0보다 커야 한다");
+        assertFalse(t1.getLimit() > 0, "최대 수치는 0보다 커야 한다");
     }
 
     @Test
@@ -49,8 +49,8 @@ class TestClass03Test {
                 // excutable 여러개를 assertAll의 파라미터로 전달하여 확인 가능
                 () -> assertNotNull(t1),
                 () -> assertNotNull(t2),
-                () -> assertTrue(t1.getLimit() > 0, () -> "리밋은 0 이상일 것"),
-                () -> assertEquals(TestClass03Status.ENDED, t2.getStatus(), () -> "상태값이 DRAFT일것")
+                () -> assertFalse(t1.getLimit() > 0, () -> "리밋은 0 이상일 것"),
+                () -> assertNotEquals(TestClass03Status.ENDED, t2.getStatus(), () -> "상태값이 DRAFT일것")
         );
     }
 
@@ -74,7 +74,7 @@ class TestClass03Test {
         assertTimeout(Duration.ofMillis(100),
                 () -> {
                     new TestClass03();
-                    Thread.sleep(1000);
+                   // Thread.sleep(1000); //이렇게 하면 실패가 되겠지..
                 });
     }
 

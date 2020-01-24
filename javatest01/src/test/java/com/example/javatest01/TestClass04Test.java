@@ -26,9 +26,9 @@ class TestClass04Test {
         assertTrue(1 > 0, () -> "이 코드는 조건에 만족하므로 실행(true라 메시지가 출력되지 않을 뿐)");
 
         //만일 조건을 충족하지 못한다면
-        assumeTrue("release".equalsIgnoreCase(System.getenv("ENV")), () -> "local 환경이 아닙니다");
+        assumeFalse("release".equalsIgnoreCase(System.getenv("ENV")), () -> "local 환경이 아닙니다");
         System.out.println("ENV가 LOCAL이 아닙니다.");
-        assertTrue(1 == 0, () -> "이 코드는 조건에 만족하지 않으므로 실행되지 않음");
+        assertTrue(1 > 0, () -> "이 코드는 assumeTrue일 경우 조건에 만족하지 않으므로 실행되지 않음");
 
     }
 
