@@ -7,6 +7,8 @@ import lombok.NoArgsConstructor;
 @Data
 public class TestClass03 {
 //    assertion 사용하기
+
+
     private TestClass03Status status = TestClass03Status.DRAFT;
     private int limit;
     private String expectEmptyString;
