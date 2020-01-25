@@ -7,12 +7,12 @@
  - 기본적인 테스트 알아보기
  
   1. Annotation
-  + @Test: 이 메서드를 테스트함
-  + @BeforeAll: 전체 테스트를 실행하기 전에 한번만 실행 
-  + @AfterAll: 전체 테스트 후에 한번만 실행
-  + @BeforeEach: 모든 테스트 전에 한번씩 실행
-  + @AfterEach: 모든 테스트 후에 한번씩 실행
-  + @Disabled: 이 테스트 실행하지 않음
+   + @Test: 이 메서드를 테스트함
+   + @BeforeAll: 전체 테스트를 실행하기 전에 한번만 실행 
+   + @AfterAll: 전체 테스트 후에 한번만 실행
+   + @BeforeEach: 모든 테스트 전에 한번씩 실행
+   + @AfterEach: 모든 테스트 후에 한번씩 실행
+   + @Disabled: 이 테스트 실행하지 않음
   
 ###### junit 5 사용시, 메인 클래스가 없어도 테스트 가능 > junit5 플랫폼의 실행 런처가 @Test가 붙은 메서드를 실행
 ###### TEST 클래스 생성 단축키 : ctrl shift t
@@ -27,8 +27,8 @@
  - 테스트 메서드 명명하기
  
   1. Annotation
-  + @DisplayName
-  + @DisplayNameGeneration
+   + @DisplayName
+   + @DisplayNameGeneration
 
 ###### @DisplayName("테스트 이름 직접 지정하기") : 테스트 메서드에 사용
 ###### @DisplayNameGeneration() -> 테스트 클래스에 써도 되고, 테스트 메서드에 써도 됨. Test Results에 테스트 이름을 어떻게 보이게 할지 정함 
@@ -42,8 +42,8 @@
  - assertion 사용하기
  
   1. assert*
-  + assertEquals, assertNotNull, assertTrue, assertTimeout, assertThrow ...
-  + assertAll : 내부의 모든 assert의 결과 보여줌 (원래 한 assert 실패시 다음 assert로 넘어가지 않음)
+   + assertEquals, assertNotNull, assertTrue, assertTimeout, assertThrow ...
+   + assertAll : 내부의 모든 assert의 결과 보여줌 (원래 한 assert 실패시 다음 assert로 넘어가지 않음)
   
 
 ***
@@ -53,8 +53,8 @@
  - 특정 조건에서만 테스트하기 1
  
   1. assume
-  + assumeTrue, assumeFalse 
-  + assumingThat
+   + assumeTrue, assumeFalse 
+   + assumingThat
 
 
 ***
@@ -64,8 +64,8 @@
  - 특정 조건에서만 테스트하기 2
  
   1. annotation
-  + @Enabled*** 
-  + @Disabled***
+   + @Enabled*** 
+   + @Disabled***
 
 
 ***
@@ -74,8 +74,8 @@
  - 테스트 태깅하기 
  
   1. annotation
-  + @Enabled*** 
-  + @Disabled***
+   + @Enabled*** 
+   + @Disabled***
 
 
 ###### 테스트 태깅 : 모듈 / 프로필 등의 조건에 따라 해당 태그가 달린 테스트만 실행하기
@@ -94,7 +94,7 @@
  - 커스터마이징 테스트 태그 
  
   1. annotation
-  + 상단 테스트 태깅을 메타 어노테이션으로 사용하여 커스텀 어노테이션화하기 
+   + 상단 테스트 태깅을 메타 어노테이션으로 사용하여 커스텀 어노테이션화하기 
 
 ###### 테스트 태깅 커스터마이징하기
 ###### 테스트 폴더에서 커스텀 annotation을 생성해서 제공되는 메타 annotation을 이용하면 됨
@@ -107,9 +107,9 @@
  - 테스트 반복하기 
  
   1. annotation
-  + @RepeatedTest :  @RepeatedTest(10) 10번 반복하기
-  + @RepeatedTest + 파라미터 RepetitionInfo
-  + @RepeatedTest 와  @DisplayName 같이 쓰기 
+   + @RepeatedTest :  @RepeatedTest(10) 10번 반복하기
+   + @RepeatedTest + 파라미터 RepetitionInfo
+   + @RepeatedTest 와  @DisplayName 같이 쓰기 
 
 
 *** 
@@ -118,9 +118,9 @@
  - 파라미터를 이용해 테스트 반복하기 
  
   1. annotation
-  + @ParameterizedTest
-  + @ValueSource 
-  + @ParameterizedTest 와  @DisplayName 같이 쓰기 
+   + @ParameterizedTest
+   + @ValueSource 
+   + @ParameterizedTest 와  @DisplayName 같이 쓰기 
 
 ###### ctrl p를 이용하여 어떤 파라미터들이 들어가는지 알아볼 수 있다
 
