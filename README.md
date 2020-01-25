@@ -7,21 +7,13 @@
  - 기본적인 테스트 알아보기
  
   1. Annotation
-  + @Test
-  + @BeforeAll
-  + @AfterAll
-  + @BeforeEach
-  + @AfterEach
-  + @Disabled
+  + @Test: 이 메서드를 테스트함
+  + @BeforeAll: 전체 테스트를 실행하기 전에 한번만 실행 
+  + @AfterAll: 전체 테스트 후에 한번만 실행
+  + @BeforeEach: 모든 테스트 전에 한번씩 실행
+  + @AfterEach: 모든 테스트 후에 한번씩 실행
+  + @Disabled: 이 테스트 실행하지 않음
   
-###### @Test : 이 메서드를 테스트함
-###### @BeforeAll : 전체 테스트를 실행하기 전에 한번만 실행 
-###### @AfterAll : 전체 테스트 후에 한번만 실행
-###### @BeforeEach : 모든 테스트 전에 한번씩 실행
-###### @AfterEach : 모든 테스트 후에 한번씩 실행
-###### @Disabled : 이 테스트 실행하지 않음
-
-
 ###### junit 5 사용시, 메인 클래스가 없어도 테스트 가능 > junit5 플랫폼의 실행 런처가 @Test가 붙은 메서드를 실행
 ###### TEST 클래스 생성 단축키 : ctrl shift t
 ###### TEST 메서드 실행 단축키 : ctrl shift f10
@@ -106,6 +98,31 @@
 
 ###### 테스트 태깅 커스터마이징하기
 ###### 테스트 폴더에서 커스텀 annotation을 생성해서 제공되는 메타 annotation을 이용하면 됨
+
+
+*** 
+
+
+#### TestClass08
+ - 테스트 반복하기 
+ 
+  1. annotation
+  + @RepeatedTest :  @RepeatedTest(10) 10번 반복하기
+  + @RepeatedTest + 파라미터 RepetitionInfo
+  + @RepeatedTest 와  @DisplayName 같이 쓰기 
+
+
+*** 
+
+#### TestClass09
+ - 파라미터를 이용해 테스트 반복하기 
+ 
+  1. annotation
+  + @ParameterizedTest
+  + @ValueSource 
+  + @ParameterizedTest 와  @DisplayName 같이 쓰기 
+
+###### ctrl p를 이용하여 어떤 파라미터들이 들어가는지 알아볼 수 있다
 
 
 *** 
