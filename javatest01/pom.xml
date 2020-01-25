@@ -57,6 +57,78 @@
         </plugins>
     </build>
 
+<!--  TestClass06의 프로파일 설정 관련 ~ -->
+
+    <profiles>
+        <profile>
+            <id>local</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <build>
+                <plugins>
+                    <plugin>
+                        <artifactId>maven-surefire-plugin</artifactId>
+                        <configuration>
+                            <groups>Fast</groups>
+                <!--이러면 mvnw test 시 자동으로 Fast 태그가 붙어있는 테스트만을 빌드할 때에 실행-->
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+
+
+        <profile>
+            <id>stage</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <artifactId>maven-surefire-plugin</artifactId>
+                        <configuration>
+                            <groups>Fast | Slow</groups>
+                            <!--mvnw test -P stage 시 자동으로 Fast나 SLow 태그가 붙어있는 테스트만을 빌드할 때에 실행-->
+                            <!--Fast & Slow 면 둘다 있어야 실행-->
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+
+
+        <profile>
+            <id>release</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <artifactId>maven-surefire-plugin</artifactId>
+                        <configuration>
+                            <groups>!Fast</groups>
+                            <!--mvnw test -P release 시 자동으로 Fast 태그가 안붙어있는 테스트만을 빌드할 때에 실행-->
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+
+
+        <profile>
+            <id>test</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <artifactId>maven-surefire-plugin</artifactId>
+                            <!-- configuration 태그를 설정안하면 mvnw test -P test 시 모든 테스트를 빌드할 때에 실행-->
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+
+
+    </profiles>
+
+    <!--  ~ TestClass06의 프로파일 설정 관련  -->
+
     <repositories>
         <repository>
             <id>spring-milestones</id>
