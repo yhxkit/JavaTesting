@@ -68,9 +68,7 @@
 #### TestClass06
  - 테스트 태깅하기 
     * annotation
-        + @Enabled*** 
-        + @Disabled***
-
+        + @Tag
 
 ###### 테스트 태깅 : 모듈 / 프로필 등의 조건에 따라 해당 태그가 달린 테스트만 실행하기
 ###### intellij에서 설정을 해주어야 하는데, 상단 구동 드롭 리스트에서 edit configurations...에서 해당 테스트 클래스의 Test kind를 Tags로 변경
@@ -107,13 +105,37 @@
 *** 
 
 #### TestClass09
- - 파라미터를 이용해 테스트 반복하기 
+ 1. 파라미터를 이용해 테스트 반복하기 
     * annotation
         + @ParameterizedTest
         + @ValueSource 
         + @ParameterizedTest 와  @DisplayName 같이 쓰기 
+        + @EmptySource : 빈 값 하나를 추가
+        + @NullSource : null 값 하나를 추가 
+        + @NullAndEmptySource : @NullSource + @EmptySource
+        
+        
+ 2. 파라미터를 이용해 반복해서 한개의 인자를 받는 생성자 객체 생성하기 
+    * annotation
+        + @ParameterizedTest
+        + @ValueSource
+        + @ConvertWith : SimpleArgumentConverter 를 상속하여 컨버터 생성해야 함
+        
+###### SimpleArgumentConverter 는 하나의 인자인 경우에만 적용됨
 
-###### ctrl p를 이용하여 어떤 파라미터들이 들어가는지 알아볼 수 있다
 
-
+ 3. 파라미터를 이용해 반복해서 여러 타입의 인자를 받는 생성자 객체 생성하기 
+    ##### 첫번째 방법 : 각각의 인자를 파라미터로 받아 새 객체 생성하기 
+    * annotation
+        + @ParameterizedTest
+        + @CsvSource
+        
+    ##### 두번째 방법 : 애그리게이트(여러개의 아규먼트를 받기) = ArgumentsAccessor로 여러인자를 하나로 조합
+    * annotation
+        + @ParameterizedTest
+        + @CsvSource
+        + @AggregateWith : ArgumentsAggregator 상속한 컨버터 생성해야 함
+    
+###### ArgumentsAggregator를 상속한 컨버터 클래스는 반드시 static inner class 이거나 public 일 것 
+    
 *** 
