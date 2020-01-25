@@ -11,9 +11,15 @@ public class TestClass03 {
 
     private TestClass03Status status = TestClass03Status.DRAFT;
     private int limit;
+    private String name;
     private String expectEmptyString;
 
     public TestClass03(int limit){
+        this.limit = limit;
+    }
+
+    public TestClass03(String name, int limit){
+        this.name = name;
         this.limit = limit;
     }
 
