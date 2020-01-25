@@ -6,7 +6,7 @@
 #### TestClass01 
  - 기본적인 테스트 알아보기
  
-  1. Annotation
+  * Annotation
    + @Test: 이 메서드를 테스트함
    + @BeforeAll: 전체 테스트를 실행하기 전에 한번만 실행 
    + @AfterAll: 전체 테스트 후에 한번만 실행
@@ -26,7 +26,7 @@
 #### TestClass02
  - 테스트 메서드 명명하기
  
-  1. Annotation
+  * Annotation
    + @DisplayName
    + @DisplayNameGeneration
 
@@ -41,7 +41,7 @@
 #### TestClass03
  - assertion 사용하기
  
-  1. assert*
+  * assert*
    + assertEquals, assertNotNull, assertTrue, assertTimeout, assertThrow ...
    + assertAll : 내부의 모든 assert의 결과 보여줌 (원래 한 assert 실패시 다음 assert로 넘어가지 않음)
   
@@ -52,7 +52,7 @@
 #### TestClass04
  - 특정 조건에서만 테스트하기 1
  
-  1. assume
+  * assume
    + assumeTrue, assumeFalse 
    + assumingThat
 
@@ -63,7 +63,7 @@
 #### TestClass05
  - 특정 조건에서만 테스트하기 2
  
-  1. annotation
+  * annotation
    + @Enabled*** 
    + @Disabled***
 
@@ -73,7 +73,7 @@
 #### TestClass06
  - 테스트 태깅하기 
  
-  1. annotation
+  * annotation
    + @Enabled*** 
    + @Disabled***
 
@@ -93,7 +93,7 @@
 #### TestClass07
  - 커스터마이징 테스트 태그 
  
-  1. annotation
+  * annotation
    + 상단 테스트 태깅을 메타 어노테이션으로 사용하여 커스텀 어노테이션화하기 
 
 ###### 테스트 태깅 커스터마이징하기
@@ -106,7 +106,7 @@
 #### TestClass08
  - 테스트 반복하기 
  
-  1. annotation
+  * annotation
    + @RepeatedTest :  @RepeatedTest(10) 10번 반복하기
    + @RepeatedTest + 파라미터 RepetitionInfo
    + @RepeatedTest 와  @DisplayName 같이 쓰기 
@@ -116,8 +116,7 @@
 
 #### TestClass09
  - 파라미터를 이용해 테스트 반복하기 
- 
-  1. annotation
+  * annotation
    + @ParameterizedTest
    + @ValueSource 
    + @ParameterizedTest 와  @DisplayName 같이 쓰기 
