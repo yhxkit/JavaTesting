@@ -102,9 +102,10 @@
         + @RepeatedTest 와  @DisplayName 같이 쓰기 
 
 
-*** 
+
 
 #### TestClass09
+
  1. 파라미터를 이용해 테스트 반복하기 
     * annotation
         + @ParameterizedTest
@@ -142,8 +143,10 @@
 
 
 #### TestClass10 
+-테스트 인스턴스 
+
  1.  테스트 인스턴스 1 
-    * 테스트 인스턴스는 단위 테스트 당 하나씩 매번 새로 생성된다 
+     * 테스트 인스턴스는 단위 테스트 당 하나씩 매번 새로 생성된다 
 
 #### TestClass 11
  2. 테스트 인스턴스 2 
