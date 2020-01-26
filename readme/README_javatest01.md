@@ -139,3 +139,28 @@
 ###### ArgumentsAggregator를 상속한 컨버터 클래스는 반드시 static inner class 이거나 public 일 것 
     
 *** 
+
+
+#### TestClass10 
+ 1.  테스트 인스턴스 1 
+    * 테스트 인스턴스는 단위 테스트 당 하나씩 매번 새로 생성된다 
+
+#### TestClass 11
+ 2. 테스트 인스턴스 2 
+    * 테스트 인스턴스를 클래스 당 하나씩 생성하는 방법
+    * annotation 
+        + @TestInstance(TestInstance.Lifecycle.PER_CLASS)
+        
+######  @TestInstance를 사용하면 @BeforeAll / @afterAll 이 static일 필요가 없어짐
+
+*** 
+
+#### TestClass12
+ - 테스트 순서
+    * annotation
+        - @TestMethodOrder : @TestMethodOrder(MethodOrderer.OrderAnnotation.class)로 @Order으로 순서를 지정하도록 하는 orderer를 사용한다
+        
+###### @TestMethodOrder는 @TestInstance가 없어도 순서는 보장한다. 단위 테스트 간의 의존성을 보장하지 않을 뿐        
+
+***
+
