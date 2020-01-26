@@ -86,6 +86,7 @@
  - 커스터마이징 테스트 태그 
     * annotation
         + 상단 테스트 태깅을 메타 어노테이션으로 사용하여 커스텀 어노테이션화하기 
+        + 위치 : 프로젝트 클래스패스 > src > test
 
 ###### 테스트 태깅 커스터마이징하기
 ###### 테스트 폴더에서 커스텀 annotation을 생성해서 제공되는 메타 annotation을 이용하면 됨
@@ -169,7 +170,7 @@
 
 #### TestClass13
  - 테스트의 설정 파일 (junit-platform.properties) ~~yml은 안되는 것 같다..~~
-    * property file
+    * properties file
         - 위치 : 프로젝트 클래스패스 > src > test > resources > junit-platform.properties
         - 설정 : 테스트 리소스 디렉토리를 인텔리제이에서 설정해주어야 함 = projectSetting > Modules > Test Resources를 적용
 
@@ -177,6 +178,24 @@
 ###### 확장팩 자동 감지 기능(디폴트는 false) : junit.jupiter.extensions.autodetection.enabled = true
 ###### @Disable 무시하고 테스트 실행하기 : junit.jupiter.conditions.deactivate = org.junit.*DisabledCondition
 ###### 테스트명명 패턴 전략 : junit.jupiter.displayname.generator.default = org.junit.jupiter.api.DisplayNameGenerator$ReplaceUnderscores
+
+***
+
+#### TestClass14 / TestClass15
+ - Junit5 확장기능 
+    * 예시에서 사용할 인터페이스 : BeforeTestExecutionCallback, AfterTestExecutionCallback
+        - 위치 : 프로젝트 클래스패스 > src > test
+        
+        * TestClass14 annotation 
+            - 선언적 등록 : 클래스에 @ExtendWith (implements BeforeTestExecutionCallback, AfterTestExecutionCallback 한 클래스 사용)
+
+        * TestClass15 annotation
+            - 프로그래밍 등록 (필드) : 클래스에 static 필드로 @RegisterExtension
+
+###### Junit4 와 Junit5는 확장 기능의 사용법이 완전히 다름
+###### - Unit 4의 확장 모델 :  @RunWith(Runner), TestRule, MethodRule
+###### - JUnit 5의 확장 모델 : Extension
+
 
 ***
 
