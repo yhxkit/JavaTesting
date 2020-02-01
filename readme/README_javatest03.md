@@ -17,54 +17,55 @@
     1. 테스트가 느려진다
 ```
 
-#### `Spring Boot에서의 Mockito`
+#### `들어가기에 앞서 도커부터 설치해보자`
 ```
- - 부트를 사용하면 기본적으로 Mockito가 딸려 온다. 
- - 만약 dependency에서 mockito를 찾을 수 없다면? 
-     : Junit5와 Mockito를 연동해주는 mockito-core 와 mockito-junit-jupiter 의존성을 추가하자  
-        1. mockito-core : mockito의 기본 코어 기능
-        2. mockito-junit-jupiter : Junit test에서 mock을 연동해서 사용할 수 있는 추가적인 Junit 확장 구현체 
+System Requirements
+
+1. Windows 10 64-bit: Pro, Enterprise, or Education (Build 15063 or later).
+2. Hyper-V and Containers Windows features must be enabled.
+3.The following hardware prerequisites are required to successfully run Client Hyper-V on Windows 10:
+    - 64 bit processor with Second Level Address Translation (SLAT)
+    - 4GB system RAM
+    - BIOS-level hardware virtualization support must be enabled in the BIOS settings. For more information, see Virtualizatio        1. mockito-core : mockito의 기본 코어 기능
+
+>> 현재 Window 10 Home 을 사용하고 있는 상태이므로 Docker Tool Box 를 이용하여 설치 시도
+ : 가상화 사용이 가능 상태임에도 불구하고, "This computer doesn't have VT-X/AMD-v enabled. Enabling it in the BIOS is mandatory" 오류로 실패. 
+    원인을 찾지 못하여 다른 방법으로 도커를 설치해보기로 했다 
  ```
+
+#### `Window 10 Home에서 Hyper-V 사용하기`
+```
+Window 10 Home 은 Hyper-V(일종의 VM인듯)를 사용할 수 없기 때문에 도커를 설치할 수 없음
+그래서 Hyper-V를 강제로 설치해보기로 함 
+
+
+ 1) 하기의 내용으로 .bat 파일을 생성
+
+    pushd "%~dp0"
+    dir /b %SystemRoot%\servicing\Packages\*Hyper-V*.mum >hyper-v.txt
+    for /f %%i in ('findstr /i . hyper-v.txt 2^>nul') do dism /online /norestart /add-package:"%SystemRoot%\servicing\Packages\%%i"
+    del hyper-v.txt
+    Dism /online /enable-feature /featurename:Microsoft-Hyper-V -All /LimitAccess /ALL
+    pause
+
+2) 관리자 권한으로 1)의 파일을 실행하여 Hyper-V를 설치 후 PC 재부팅. 
+    이제 제어판\프로그램\프로그램 및 기능의 windows 기능 켜기/끄기에서 Hyper-v 항목을 확인할 수 있다 
+
+3) 관리자 권한으로 regedit을 실행하여 컴퓨터\HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion 의 EditionID를 Professional 로 변경
+
+4) 이제 도커를 인스톨하면... 인스톨에 실패한다 
+
+5) 인스톨을 시도한 도커 버전은 2.2.0 버전이었는데, 3)이 아닌 곳에서도 os를 확인하는 로직이 업데이트된 것으로 추정
+
+6) 구버전의 도커를 인스톨해보자. 2.0.0 버전은 다행히도 regedit만 Professional로 수정하면 인스톨에 성공한다
+
+7) 인스톨이 끝났다면 regedit은 원상복구 시켜둘 것
+
+```
 
 ***
 
 #### StudyService
 
-**① Mock 객체 생성하기**
-   - 테스트하려는 서비스의 의존성으로 구현체가 없는 객체를 사용하려 할 때에(repository, service interface...) Mock을 사용하기 적절
-   - 이때에 테스트하려는 서비스가 의존하는 객체들(StudyRepository, MemberService)을 Mocking하면 됨
-    
-        * Mock 객체 생성하는 방법 세 가지
-            1. 메서드 사용하기 : Mockito.mock(Mock으로 생성하려는 객체)
-            2. 어노테이션 사용하여 필드값으로 만들기 : @Mock과 @Mock을 처리해줄 @ExtendWith(MockitoExtension.class)을 이용해 Mock으로 생성할 객체를 필드로 주기 
-            3. 어노테이션을 사용하여 파라미터로 만들기 : @Mock과 @Mock을 처리해줄 @ExtendWith(MockitoExtension.class)을 이용해 Mock으로 생성할 객체를 사용할 메서드의 인자로 넘김
-            
-#            
-**② Mock 객체 Stubbing 하기 (Mock 객체의 행위 관리 / 검증)**
-
-   * 모든 Mock 객체는 더미 객체답게 빈 값을 반환한다
-        1. null, Optional.empty, 빈 콜렉션 등...
-        2. void의 경우 아무일도 발생하지 않는다 
-        
-   * 여기서 Mock 객체가 빈 값이 아니라 어떤 특정 값을 반환하도록 지정하는 것이 Stubbing             
-        1. when(스터빙할 메서드).thenReturn(원하는 결과값) 
-        
-#      
-**③ Mock 객체 verify 하기**
-
-   * Stubbing을 하기 어려운 Mock 객체를 검증하기 위해 사용한다
-   * 예를 들자면, 해당 Mock 객체의 특정 메서드가 호출됐는가? 됐다면 몇번 호출됐는가? 와 같은 내용
-        1. verify() : 몇번 호출되었는지 등..
-        2. InOrder :  순서대로 실행되는지
-        3. verifyNoMoreInteractions : 더 이상 호출하지 않는지 
-
-#
-         
-- Mockito가 지원하는 Behavior Driven Development 스타일의 API 
-
-    : 앱이 어떻게 행동해야하는지에 대한 공통된 이해를 구성하는 방법. TDD에서 창안
-    
-    : Given(service, repository, 객체 등) > When(Given의 행위) > Then(When의 결과) 의 플로우로 테스트를 진행
+**① 이제 StudyServiceTest에서 ServiceRepository는 더 이상 Mock객체가 아닌 실제의 객체를 사용한다(@Autowired)**
    
-    :: DBBMockito 패키지를 사용하여 해당 코드에서 사용한 when = given으로, times = should 로 변경하면 BDD 스타일이 됩니다
-    
