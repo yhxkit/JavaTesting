@@ -26,7 +26,7 @@ System Requirements
 3.The following hardware prerequisites are required to successfully run Client Hyper-V on Windows 10:
     - 64 bit processor with Second Level Address Translation (SLAT)
     - 4GB system RAM
-    - BIOS-level hardware virtualization support must be enabled in the BIOS settings. For more information, see Virtualizatio        1. mockito-core : mockito의 기본 코어 기능
+    - BIOS-level hardware virtualization support must be enabled in the BIOS settings. For more information, see Virtualizatio     
 
 >> 현재 Window 10 Home 을 사용하고 있는 상태이므로 Docker Tool Box 를 이용하여 설치 시도
  : 가상화 사용이 가능 상태임에도 불구하고, "This computer doesn't have VT-X/AMD-v enabled. Enabling it in the BIOS is mandatory" 오류로 실패. 
@@ -53,7 +53,7 @@ Window 10 Home 은 Hyper-V(일종의 VM인듯)를 사용할 수 없기 때문에
 
 3) 관리자 권한으로 regedit을 실행하여 컴퓨터\HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion 의 EditionID를 Professional 로 변경
 
-4) 이제 도커를 인스톨하면... 인스톨에 실패한다 
+4) 최신 버전의 도커를 다운받아 인스톨해보자... 인스톨에 실패한다 
 
 5) 인스톨을 시도한 도커 버전은 2.2.0 버전이었는데, 3)이 아닌 곳에서도 os를 확인하는 로직이 업데이트된 것으로 추정
 
