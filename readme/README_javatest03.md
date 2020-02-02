@@ -61,11 +61,74 @@ Window 10 Home 은 Hyper-V(일종의 VM인듯)를 사용할 수 없기 때문에
 
 7) 인스톨이 끝났다면 regedit은 원상복구 시켜둘 것
 
+    ~~예시가 postgresql을 사용하길래 도커에서 postgresql 이미지 풀받아서 써보려는데...겁내 생소하고 어렵다... 내가 알던 db들하고 넘 다름..~~
 ```
 
 ***
 
 #### StudyService
 
-**① 이제 StudyServiceTest에서 ServiceRepository는 더 이상 Mock객체가 아닌 실제의 객체를 사용한다(@Autowired)**
-   
+ - 이제 StudyServiceTest에서 ServiceRepository는 더 이상 Mock객체가 아닌 실제의 객체를 사용한다(@Autowired)
+ - 이 때, 터미널에서 도커를 띄우고 db로 사용할 postgresql 컨테이너를 띄워놓아야 테스트가 성공하게 되며, 
+ 이를 위해 테스트용 설정 파일과 스크립트 파일을 별도로 작성해두어야 한다
+ - 이 단점을 보완하기 위해 사용할 수 있는것이  [TestContainers.org](http://testcontainers.org/) 라는 라이브러리 
+ 
+ **※목표 :  도커를 띄워두지 않아도 테스트를 실행할 때 자동으로 떴다가 테스트 종료시 자동으로 내려가는 테스트 컨테이너 만들기**
+
+#### TestContainers 설치하기 
+```
+junit을 지원하는 테스트 컨테이너 의존성을 추가하면 됨 
+
+<dependency>
+    <groupId>org.testcontainers</groupId>
+    <artifactId>junit-jupiter</artifactId>
+    <version>1.12.4</version>
+    <scope>test</scope>
+</dependency>
+
+→ 이제 @TestContainers라는 어노테이션을 사용할 수 있게 됨
+```   
+
+
+```
+postgres 모듈설치 
+
+<dependency>
+    <groupId>org.testcontainers</groupId>
+    <artifactId>postgresql</artifactId>
+    <version>1.12.4</version>
+    <scope>test</scope>
+</dependency>
+
+여러 모듈을 제공하며, 각 모듈은 별도 설치 필요. 모듈을 설치해야 해당 db의 컨테이너를 띄울 수 있다
+이제 테스트 클래스의 필드에 static PostgreSQLContainer postgreSQLContainer = new PostgreSQLContainer();를 설정해주자..
+static으로 하지 않으면 매 메소드마다 새로운 컨테이너를 생성하므로 static해줄것
+즉 인스턴스 필드로 사용하면 모든 테스트 마다 컨테이너를 재시작 하고, 스태틱 필드로 사용하면 클래스 내부 모든 테스트에서 동일한 컨테이너를 재사용한다.
+
+```
+
+##### in TestServiceTest
+
+이제 @BeforeAll/@BeforeAfter를 사용하여 테스트 컨테이너를 올리고 내리면 됨  
+다만, postgres가 설정파일에 설정해둔 url에 떠 있어야만 정상적으로 테스트 컨테이너를 올리고 내릴 수 있다는 것..!   
+- 이걸 설정하려면?
+    1. [https://www.testcontainers.org/modules/databases/](https://www.testcontainers.org/modules/databases/)에서 확인해보자....  
+    2. jdbc:tc:mysql~~~ / jdbc:tc:postgresql~~~ 식으로 **tc**를 추가하면 된다 
+    3. 설정파일에서 더 이상 url과 포트번호는 필요없다. 알아서 매칭해줌  
+        - spring.datasource.url=jdbc:tc:postgresql:///studytest
+    4. 설정파일에 다음 설정이 추가되어야 한다   
+        - spring.datasource.driver-class-name=org.testcontainers.jdbc.ContainerDatabaseDriver
+
+
+##### in TestService2Test
+
+◎ 그런데.....!  
+ 이렇게 @BeforeAll/@AfterAll 로 일일이 해주지 않아도 어노테이션을 사용하여 해당 기능을 사용할 수 있다
+
+- @Testcontainers 
+    - JUnit 5 확장팩으로 테스트 클래스에 @Container를 사용한 필드를 찾아서 컨테이너 라이프사이클 관련 메소드를 실행해준다.
+
+- @Container
+    - 인스턴스 필드에 사용하면 모든 테스트 마다 컨테이너를 재시작 하고, 스태틱 필드에 사용하면 클래스 내부 모든 테스트에서 동일한 컨테이너를 재사용한다.
+
+*** 
